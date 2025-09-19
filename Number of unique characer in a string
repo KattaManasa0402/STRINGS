@@ -1,0 +1,29 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+int func(string str){
+    int mask=0;
+     for(char c:str){
+        int bit =c-'a';
+        mask=mask|(1<<bit);
+    }
+    return mask;
+}
+//Brian Kernighan’s Algorithm
+//Each time you do mask & (mask - 1), it removes the lowest set bit.
+//Count how many times you can do that before mask becomes 0.
+int count(string str){
+    int mask=func(str);
+    int cnt=0;
+    while(mask){
+        mask=mask&(mask-1);
+        cnt++;
+    }
+    return cnt;
+}
+int main() {
+    string str="aba";
+    int ans=count(str);
+    cout<<ans;
+    return 0;
+}
