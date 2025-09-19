@@ -1,0 +1,27 @@
+// Online C++ compiler to run C++ program online
+//Method - here i would use Bitmasking - so will check if a char has appeared before or not 
+//Steps - 
+//1) Find the index of that char
+//2)Find the mask - 1<<index of character
+//3)Check - checker & mask if = 1  => has appeared else not appeared 
+//4)If not appeared before - update the checker (checker = checker | mask)
+#include <iostream>
+using namespace std;
+bool func(string str){
+     for(char c:str){
+        int checker=0;
+        int bit =c-'a';
+        int mask=1<<bit;
+        if(checker&mask){
+            return false;
+        }
+        checker=checker|mask;
+    }
+    return true;
+}
+int main() {
+    string str="aba";
+    bool is_Unique=func(str);
+    cout<<is_Unique;
+    return 0;
+}
