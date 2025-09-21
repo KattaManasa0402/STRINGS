@@ -34,3 +34,73 @@ int main() {
     }
     return 0;
 }
+
+-----------------------------------------------------
+1ST BRUTE FORCE - 2 FOR LOOP 
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+bool hasCommonBruteForce(const string &s1, const string &s2) {
+    for (char c1 : s1) {
+        for (char c2 : s2) {
+            if (c1 == c2) return true;
+        }
+    }
+    return false;
+}
+
+
+---------------------------------------------------------
+
+2ND - unordered_set
+#include <iostream>
+#include <unordered_set>
+#include <string>
+using namespace std;
+
+bool hasCommonSet(const string &s1, const string &s2) {
+    unordered_set<char> set1(s1.begin(), s1.end());
+    for (char c : s2) {
+        if (set1.count(c)) return true;
+    }
+    return false;
+}
+
+----------------------------------------------------------
+3RD APPROACH - Boolean Array (Efficient for fixed alphabet, e.g., lowercase letters)
+#include <iostream>
+#include <string>
+using namespace std;
+
+bool hasCommonBoolArray(const string &s1, const string &s2) {
+    bool seen[26] = {false};
+    for (char c : s1) {
+        if (isalpha(c)) seen[c - 'a'] = true; 
+    }
+    for (char c : s2) {
+        if (isalpha(c) && seen[c - 'a']) return true;
+    }
+    return false;
+}
+-----------------------------------------------------------
+4TH APPROACH - Bitmask Trick (Super Fast for a-z)
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+bool hasCommonBitmask(const string &s1, const string &s2) {
+    int mask1 = 0, mask2 = 0;
+    for (char c : s1) {
+        if (isalpha(c)) mask1 |= 1 << (c - 'a');
+    }
+    for (char c : s2) {
+        if (isalpha(c)) mask2 |= 1 << (c - 'a');
+    }
+    return (mask1 & mask2) != 0;
+}
+
+--------------------------------------------------------
+
